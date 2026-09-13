@@ -1,0 +1,9 @@
+node_modules
+reports
+.git
+.env
+test
+docs
+public
+*.md
+.eslintcache
