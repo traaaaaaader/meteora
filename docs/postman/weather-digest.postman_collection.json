@@ -1,0 +1,198 @@
+{
+  "info": {
+    "name": "Weather Digest — Open-Meteo API",
+    "description": "Коллекция запросов Open-Meteo, используемых консольной утилитой «Погодный дайджест»: геокодинг города и получение прогноза погоды.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "geocodingBaseUrl", "value": "https://geocoding-api.open-meteo.com/v1/search" },
+    { "key": "forecastBaseUrl", "value": "https://api.open-meteo.com/v1/forecast" },
+    { "key": "city", "value": "Москва" },
+    { "key": "lat", "value": "55.75204" },
+    { "key": "lon", "value": "37.61781" }
+  ],
+  "item": [
+    {
+      "name": "Geocoding",
+      "item": [
+        {
+          "name": "Geocoding — успешный ответ (город найден)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{geocodingBaseUrl}}?name={{city}}&count=1&language=ru&format=json",
+              "host": ["{{geocodingBaseUrl}}"],
+              "query": [
+                { "key": "name", "value": "{{city}}" },
+                { "key": "count", "value": "1" },
+                { "key": "language", "value": "ru" },
+                { "key": "format", "value": "json" }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK — город найден",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{geocodingBaseUrl}}?name={{city}}&count=1&language=ru&format=json",
+                  "host": ["{{geocodingBaseUrl}}"],
+                  "query": [
+                    { "key": "name", "value": "{{city}}" },
+                    { "key": "count", "value": "1" },
+                    { "key": "language", "value": "ru" },
+                    { "key": "format", "value": "json" }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": 524901,\n      \"name\": \"Москва\",\n      \"latitude\": 55.75204,\n      \"longitude\": 37.61781,\n      \"elevation\": 155,\n      \"feature_code\": \"PPLC\",\n      \"country_code\": \"RU\",\n      \"admin1_id\": 524894,\n      \"timezone\": \"Europe/Moscow\",\n      \"population\": 10381222,\n      \"country_id\": 2017370,\n      \"country\": \"Россия\",\n      \"admin1\": \"Москва\"\n    }\n  ],\n  \"generationtime_ms\": 1.3209581\n}"
+            }
+          ]
+        },
+        {
+          "name": "Geocoding — город не найден",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{geocodingBaseUrl}}?name=НесуществующийГород123&count=1&language=ru&format=json",
+              "host": ["{{geocodingBaseUrl}}"],
+              "query": [
+                { "key": "name", "value": "НесуществующийГород123" },
+                { "key": "count", "value": "1" },
+                { "key": "language", "value": "ru" },
+                { "key": "format", "value": "json" }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK — результаты отсутствуют",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{geocodingBaseUrl}}?name=НесуществующийГород123&count=1&language=ru&format=json",
+                  "host": ["{{geocodingBaseUrl}}"],
+                  "query": [
+                    { "key": "name", "value": "НесуществующийГород123" },
+                    { "key": "count", "value": "1" },
+                    { "key": "language", "value": "ru" },
+                    { "key": "format", "value": "json" }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n  \"generationtime_ms\": 0.15676022\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Forecast",
+      "item": [
+        {
+          "name": "Forecast — успешный ответ",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{forecastBaseUrl}}?latitude={{lat}}&longitude={{lon}}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days=3&timezone=auto",
+              "host": ["{{forecastBaseUrl}}"],
+              "query": [
+                { "key": "latitude", "value": "{{lat}}" },
+                { "key": "longitude", "value": "{{lon}}" },
+                {
+                  "key": "daily",
+                  "value": "temperature_2m_max,temperature_2m_min,precipitation_sum"
+                },
+                { "key": "forecast_days", "value": "3" },
+                { "key": "timezone", "value": "auto" }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK — прогноз на 3 дня",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{forecastBaseUrl}}?latitude={{lat}}&longitude={{lon}}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days=3&timezone=auto",
+                  "host": ["{{forecastBaseUrl}}"],
+                  "query": [
+                    { "key": "latitude", "value": "{{lat}}" },
+                    { "key": "longitude", "value": "{{lon}}" },
+                    {
+                      "key": "daily",
+                      "value": "temperature_2m_max,temperature_2m_min,precipitation_sum"
+                    },
+                    { "key": "forecast_days", "value": "3" },
+                    { "key": "timezone", "value": "auto" }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n  \"latitude\": 55.75,\n  \"longitude\": 37.625,\n  \"generationtime_ms\": 0.0615,\n  \"utc_offset_seconds\": 10800,\n  \"timezone\": \"Europe/Moscow\",\n  \"timezone_abbreviation\": \"GMT+3\",\n  \"elevation\": 151,\n  \"daily_units\": {\n    \"time\": \"iso8601\",\n    \"temperature_2m_max\": \"°C\",\n    \"temperature_2m_min\": \"°C\",\n    \"precipitation_sum\": \"mm\"\n  },\n  \"daily\": {\n    \"time\": [\"2026-09-12\", \"2026-09-13\", \"2026-09-14\"],\n    \"temperature_2m_max\": [17.1, 16.4, 18.4],\n    \"temperature_2m_min\": [9.6, 8.9, 9.5],\n    \"precipitation_sum\": [0, 0, 0]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Forecast — ошибочный запрос (некорректная широта)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{forecastBaseUrl}}?latitude=9999&longitude={{lon}}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days=3&timezone=auto",
+              "host": ["{{forecastBaseUrl}}"],
+              "query": [
+                { "key": "latitude", "value": "9999" },
+                { "key": "longitude", "value": "{{lon}}" },
+                {
+                  "key": "daily",
+                  "value": "temperature_2m_max,temperature_2m_min,precipitation_sum"
+                },
+                { "key": "forecast_days", "value": "3" },
+                { "key": "timezone", "value": "auto" }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "400 Bad Request — некорректная широта",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{forecastBaseUrl}}?latitude=9999&longitude={{lon}}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days=3&timezone=auto",
+                  "host": ["{{forecastBaseUrl}}"],
+                  "query": [
+                    { "key": "latitude", "value": "9999" },
+                    { "key": "longitude", "value": "{{lon}}" },
+                    {
+                      "key": "daily",
+                      "value": "temperature_2m_max,temperature_2m_min,precipitation_sum"
+                    },
+                    { "key": "forecast_days", "value": "3" },
+                    { "key": "timezone", "value": "auto" }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n  \"error\": true,\n  \"reason\": \"Latitude must be in range of -90 to 90°. Given: 9999.0.\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
