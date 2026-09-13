@@ -1,0 +1,22 @@
+{
+  "name": "meteora",
+  "version": "1.0.0",
+  "description": "Консольная утилита «Погодный дайджест» — прогноз погоды для одного или нескольких городов через Open-Meteo REST API",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "keywords": [],
+  "author": "Trader",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.10.0",
+    "prettier": "^3.9.6"
+  }
+}
